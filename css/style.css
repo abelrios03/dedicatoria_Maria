@@ -2695,3 +2695,44 @@ a:focus-visible {
     transition: opacity .2s ease, visibility .2s ease !important;
   }
 }
+
+/* =========================================================
+   CORRECCIÓN: CARTA COMPLETA
+   ========================================================= */
+
+.love-letter {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.letter-content {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.letter-content p {
+  display: block !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+.letter-highlight-box {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.letter-signature {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
