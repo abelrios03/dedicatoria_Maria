@@ -1,245 +1,108 @@
 class RomanticAudio {
-
   constructor() {
-
-    this.audio =
-      new Audio("assets/musica.mp3");
-
-    this.audio.loop = true;
-
-    this.audio.volume = 0.35;
-
-    this.playing = false;
-
-
-    // Sonidos cortos usando Web Audio
+    this.music = new Audio("audio/romantic-song.mp3");
+    this.music.loop = true;
+    this.music.volume = 0.35;
 
     this.audioContext = null;
   }
 
-
-  initContext() {
-
+  initializeContext() {
     if (!this.audioContext) {
+      const AudioContext =
+        window.AudioContext || window.webkitAudioContext;
 
-      this.audioContext =
-        new (
-          window.AudioContext ||
-          window.webkitAudioContext
-        )();
-
+      if (AudioContext) {
+        this.audioContext = new AudioContext();
+      }
     }
 
     if (
-      this.audioContext.state ===
-      "suspended"
+      this.audioContext &&
+      this.audioContext.state === "suspended"
     ) {
-
       this.audioContext.resume();
-
     }
-
   }
-
 
   play() {
+    this.initializeContext();
 
-    this.initContext();
-
-    this.audio
-      .play()
-      .then(() => {
-
-        this.playing = true;
-
-      })
-      .catch(() => {
-
-        console.log(
-          "El navegador requiere interacción del usuario para reproducir música."
-        );
-
-      });
-
+    return this.music.play().catch(() => {
+      return false;
+    });
   }
-
 
   pause() {
-
-    this.audio.pause();
-
-    this.playing = false;
+    this.music.pause();
   }
-
 
   toggle() {
+    this.initializeContext();
 
-    if (this.playing) {
-
-      this.pause();
-
-      return false;
-
-    } else {
-
-      this.play();
-
+    if (this.music.paused) {
+      this.music.play().catch(() => { });
       return true;
-
     }
 
+    this.music.pause();
+    return false;
   }
 
+  playTone(frequency, duration, type = "sine") {
+    this.initializeContext();
 
-  playMagicChime() {
+    if (!this.audioContext) return;
 
-    this.initContext();
+    const oscillator = this.audioContext.createOscillator();
+    const gain = this.audioContext.createGain();
 
-    const ctx =
-      this.audioContext;
-
-    const now =
-      ctx.currentTime;
-
-
-    const frequencies = [
-      523.25,
-      659.25,
-      783.99,
-      1046.50
-    ];
-
-
-    frequencies.forEach(
-      (frequency, index) => {
-
-        const oscillator =
-          ctx.createOscillator();
-
-        const gain =
-          ctx.createGain();
-
-
-        oscillator.type =
-          "sine";
-
-
-        oscillator.frequency.value =
-          frequency;
-
-
-        gain.gain.setValueAtTime(
-          0,
-          now + index * .08
-        );
-
-
-        gain.gain.linearRampToValueAtTime(
-          .12,
-          now +
-          index * .08 +
-          .03
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-          .001,
-          now +
-          index * .08 +
-          .8
-        );
-
-
-        oscillator.connect(gain);
-
-        gain.connect(ctx.destination);
-
-
-        oscillator.start(
-          now + index * .08
-        );
-
-
-        oscillator.stop(
-          now +
-          index * .08 +
-          .9
-        );
-
-      }
-    );
-
-  }
-
-
-  playHeartPop() {
-
-    this.initContext();
-
-    const ctx =
-      this.audioContext;
-
-    const now =
-      ctx.currentTime;
-
-
-    const oscillator =
-      ctx.createOscillator();
-
-    const gain =
-      ctx.createGain();
-
-
-    oscillator.type =
-      "sine";
-
-
-    oscillator.frequency.setValueAtTime(
-      600,
-      now
-    );
-
-
-    oscillator.frequency.exponentialRampToValueAtTime(
-      950,
-      now + .12
-    );
-
+    oscillator.type = type;
+    oscillator.frequency.value = frequency;
 
     gain.gain.setValueAtTime(
-      .12,
-      now
+      0.0001,
+      this.audioContext.currentTime
     );
-
 
     gain.gain.exponentialRampToValueAtTime(
-      .001,
-      now + .2
+      0.12,
+      this.audioContext.currentTime + 0.03
     );
 
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      this.audioContext.currentTime + duration
+    );
 
     oscillator.connect(gain);
+    gain.connect(this.audioContext.destination);
 
-    gain.connect(ctx.destination);
-
-
-    oscillator.start(now);
-
-    oscillator.stop(
-      now + .25
-    );
-
+    oscillator.start();
+    oscillator.stop(this.audioContext.currentTime + duration);
   }
 
+  playMagicChime() {
+    this.playTone(523.25, 0.35, "sine");
+
+    setTimeout(() => {
+      this.playTone(659.25, 0.35, "sine");
+    }, 100);
+
+    setTimeout(() => {
+      this.playTone(783.99, 0.45, "sine");
+    }, 200);
+  }
+
+  playHeartPop() {
+    this.playTone(420, 0.12, "triangle");
+
+    setTimeout(() => {
+      this.playTone(620, 0.18, "triangle");
+    }, 50);
+  }
 }
 
-
-window.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    window.romanticAudio =
-      new RomanticAudio();
-
-  }
-);
+window.addEventListener("DOMContentLoaded", () => {
+  window.romanticAudio = new RomanticAudio();
+});

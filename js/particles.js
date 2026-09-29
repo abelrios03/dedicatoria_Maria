@@ -1,158 +1,256 @@
-/*
-  ===================================================================
-  SISTEMA DE PARTÍCULAS INTERACTIVO Y FUEGOS ARTIFICIALES DE CORAZONES
-  Maneja el lienzo HTML5 Canvas para corazones flotantes y magia.
-  ===================================================================
-*/
-
 class HeartParticleSystem {
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas.getContext("2d");
+
     this.particles = [];
     this.burstParticles = [];
     this.mouseTrail = [];
+
     this.width = 0;
     this.height = 0;
-    
+
     this.resize();
-    window.addEventListener('resize', () => this.resize());
+
+    window.addEventListener("resize", () => this.resize());
+
     this.initFloatingParticles();
     this.bindEvents();
     this.animate();
   }
 
   resize() {
-    this.width = this.canvas.width = window.innerWidth;
-    this.height = this.canvas.height = window.innerHeight;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+    this.canvas.width = this.width * ratio;
+    this.canvas.height = this.height * ratio;
+
+    this.canvas.style.width = `${this.width}px`;
+    this.canvas.style.height = `${this.height}px`;
+
+    this.ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   }
 
   initFloatingParticles() {
-    const count = Math.min(Math.floor(window.innerWidth / 20), 60);
+    const count = Math.min(Math.floor(window.innerWidth / 22), 55);
+
     for (let i = 0; i < count; i++) {
-      this.particles.push(this.createFloatingHeart());
+      const heart = this.createFloatingHeart();
+      heart.y = Math.random() * this.height;
+      this.particles.push(heart);
     }
   }
 
   createFloatingHeart() {
+    const colors = [
+      "#ff4f91",
+      "#ff82ae",
+      "#ffd76a",
+      "#ffffff",
+      "#d92c68"
+    ];
+
     return {
       x: Math.random() * this.width,
       y: this.height + Math.random() * 100,
-      size: Math.random() * 14 + 8,
-      speedY: Math.random() * 1.2 + 0.5,
-      speedX: Math.sin(Math.random() * Math.PI) * 0.8,
-      opacity: Math.random() * 0.7 + 0.3,
-      color: ['#ff4b8b', '#ff0055', '#ff758c', '#ffd700', '#f4acb7'][Math.floor(Math.random() * 5)],
-      swing: Math.random() * 0.05,
-      angle: Math.random() * Math.PI * 2
+      size: Math.random() * 9 + 5,
+      speedY: Math.random() * 0.7 + 0.2,
+      speedX: Math.random() * 0.5 - 0.25,
+      opacity: Math.random() * 0.4 + 0.15,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      angle: Math.random() * Math.PI * 2,
+      swing: Math.random() * 0.035 + 0.01
     };
   }
 
   bindEvents() {
     const handleMove = (x, y) => {
+      if (this.mouseTrail.length > 90) return;
+
       for (let i = 0; i < 2; i++) {
         this.mouseTrail.push({
           x: x + (Math.random() - 0.5) * 15,
           y: y + (Math.random() - 0.5) * 15,
-          size: Math.random() * 10 + 6,
+          size: Math.random() * 6 + 4,
           life: 1,
-          decay: Math.random() * 0.03 + 0.02,
-          color: ['#ffd700', '#ff4b8b', '#ffffff'][Math.floor(Math.random() * 3)]
+          decay: Math.random() * 0.035 + 0.025,
+          color: Math.random() < 0.6 ? "#ff82ae" : "#ffd76a"
         });
       }
     };
 
-    window.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        handleMove(e.touches[0].clientX, e.touches[0].clientY);
-      }
+    window.addEventListener("mousemove", (event) => {
+      handleMove(event.clientX, event.clientY);
     });
+
+    window.addEventListener(
+      "touchmove",
+      (event) => {
+        if (event.touches.length) {
+          handleMove(
+            event.touches[0].clientX,
+            event.touches[0].clientY
+          );
+        }
+      },
+      { passive: true }
+    );
   }
 
-  // Ráfaga de fuegos artificiales de amor
-  triggerBurst(x, y) {
-    const count = 70;
+  triggerBurst(x, y, count = 55) {
+    const colors = [
+      "#ff1767",
+      "#ff4f91",
+      "#ff91b7",
+      "#ffd76a",
+      "#ffffff"
+    ];
+
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 8 + 2;
+      const speed = Math.random() * 6 + 1.5;
+
       this.burstParticles.push({
-        x: x || this.width / 2,
-        y: y || this.height / 2,
+        x: x ?? this.width / 2,
+        y: y ?? this.height / 2,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 2,
-        size: Math.random() * 16 + 8,
-        gravity: 0.12,
+        vy: Math.sin(angle) * speed - 1.5,
+        size: Math.random() * 9 + 4,
+        gravity: 0.075,
         alpha: 1,
-        decay: Math.random() * 0.02 + 0.015,
-        color: ['#ff0055', '#ff4b8b', '#ffd700', '#ffffff', '#ff758c'][Math.floor(Math.random() * 5)],
-        rotation: Math.random() * Math.PI
+        decay: Math.random() * 0.018 + 0.012,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * Math.PI,
+        rotationSpeed: Math.random() * 0.08 - 0.04
       });
     }
   }
 
   drawHeart(x, y, size, color, opacity = 1, rotation = 0) {
-    this.ctx.save();
-    this.ctx.translate(x, y);
-    this.ctx.rotate(rotation);
-    this.ctx.globalAlpha = opacity;
-    this.ctx.fillStyle = color;
-    this.ctx.beginPath();
-    
-    // Dibujo matemático de forma de corazón perfecta
-    const topCurveHeight = size * 0.3;
-    this.ctx.moveTo(0, topCurveHeight);
-    this.ctx.bezierCurveTo(0, 0, -size / 2, 0, -size / 2, topCurveHeight);
-    this.ctx.bezierCurveTo(-size / 2, (size + topCurveHeight) / 2, 0, size, 0, size);
-    this.ctx.bezierCurveTo(0, size, size / 2, (size + topCurveHeight) / 2, size / 2, topCurveHeight);
-    this.ctx.bezierCurveTo(size / 2, 0, 0, 0, 0, topCurveHeight);
-    
-    this.ctx.closePath();
-    this.ctx.fill();
-    this.ctx.restore();
+    const ctx = this.ctx;
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+    ctx.globalAlpha = opacity;
+    ctx.fillStyle = color;
+
+    ctx.beginPath();
+
+    const top = size * 0.3;
+
+    ctx.moveTo(0, top);
+
+    ctx.bezierCurveTo(
+      0,
+      0,
+      -size / 2,
+      0,
+      -size / 2,
+      top
+    );
+
+    ctx.bezierCurveTo(
+      -size / 2,
+      (size + top) / 2,
+      0,
+      size,
+      0,
+      size
+    );
+
+    ctx.bezierCurveTo(
+      0,
+      size,
+      size / 2,
+      (size + top) / 2,
+      size / 2,
+      top
+    );
+
+    ctx.bezierCurveTo(
+      size / 2,
+      0,
+      0,
+      0,
+      0,
+      top
+    );
+
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
   }
 
   animate() {
-    this.ctx.clearRect(0, 0, this.width, this.height);
+    const ctx = this.ctx;
 
-    // 1. Partículas flotantes de fondo
-    this.particles.forEach((p, idx) => {
-      p.y -= p.speedY;
-      p.angle += p.swing;
-      p.x += Math.sin(p.angle) * 0.5;
+    ctx.clearRect(0, 0, this.width, this.height);
 
-      if (p.y < -30) {
-        this.particles[idx] = this.createFloatingHeart();
+    this.particles.forEach((particle, index) => {
+      particle.y -= particle.speedY;
+      particle.angle += particle.swing;
+
+      particle.x +=
+        particle.speedX +
+        Math.sin(particle.angle) * 0.35;
+
+      if (particle.y < -30) {
+        this.particles[index] = this.createFloatingHeart();
       }
 
-      this.drawHeart(p.x, p.y, p.size, p.color, p.opacity, Math.sin(p.angle) * 0.2);
+      this.drawHeart(
+        particle.x,
+        particle.y,
+        particle.size,
+        particle.color,
+        particle.opacity,
+        Math.sin(particle.angle) * 0.15
+      );
     });
 
-    // 2. Rastro del ratón/táctil (destellos dorados y corazoncitos)
     for (let i = this.mouseTrail.length - 1; i >= 0; i--) {
-      const t = this.mouseTrail[i];
-      t.life -= t.decay;
-      t.y -= 0.5;
+      const particle = this.mouseTrail[i];
 
-      if (t.life <= 0) {
+      particle.life -= particle.decay;
+      particle.y -= 0.5;
+
+      if (particle.life <= 0) {
         this.mouseTrail.splice(i, 1);
       } else {
-        this.drawHeart(t.x, t.y, t.size * t.life, t.color, t.life);
+        this.drawHeart(
+          particle.x,
+          particle.y,
+          particle.size * particle.life,
+          particle.color,
+          particle.life
+        );
       }
     }
 
-    // 3. Partículas de ráfagas/fuegos artificiales
     for (let i = this.burstParticles.length - 1; i >= 0; i--) {
-      const b = this.burstParticles[i];
-      b.x += b.vx;
-      b.y += b.vy;
-      b.vy += b.gravity;
-      b.alpha -= b.decay;
+      const particle = this.burstParticles[i];
 
-      if (b.alpha <= 0) {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.vy += particle.gravity;
+      particle.alpha -= particle.decay;
+      particle.rotation += particle.rotationSpeed;
+
+      if (particle.alpha <= 0) {
         this.burstParticles.splice(i, 1);
       } else {
-        this.drawHeart(b.x, b.y, b.size, b.color, b.alpha, b.rotation);
+        this.drawHeart(
+          particle.x,
+          particle.y,
+          particle.size,
+          particle.color,
+          particle.alpha,
+          particle.rotation
+        );
       }
     }
 
@@ -160,6 +258,6 @@ class HeartParticleSystem {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  window.heartParticles = new HeartParticleSystem('bg-canvas');
+window.addEventListener("DOMContentLoaded", () => {
+  window.heartParticles = new HeartParticleSystem("bg-canvas");
 });
