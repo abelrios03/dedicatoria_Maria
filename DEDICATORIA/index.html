@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Para María ❤️ | De Abel</title>
+
+  <meta name="theme-color" content="#090014">
+  <meta name="description" content="Una pequeña parte de mi corazón para María Barreto Angel.">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       UNIVERSO DE FONDO
+  ====================================================== -->
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="stars-layer"></div>
+  <div class="nebula nebula-one"></div>
+  <div class="nebula nebula-two"></div>
+
+  <!-- Cursor/touch glow -->
+  <div id="touch-glow"></div>
+
+
+  <!-- =====================================================
+       CONTROL DE MÚSICA
+  ====================================================== -->
+
+  <button class="audio-control-widget paused" id="audio-widget">
+    <i class="fas fa-music audio-icon"></i>
+
+    <span id="audio-status-text">
+      Toca para escuchar
+    </span>
+  </button>
+
+
+  <!-- =====================================================
+       INTRO CINEMATOGRÁFICA
+  ====================================================== -->
+
+  <section class="envelope-overlay" id="envelope-overlay">
+
+    <div class="intro-stars"></div>
+
+    <div class="intro-content">
+
+      <div class="intro-small-text">
+        HAY PERSONAS QUE LLEGAN A NUESTRA VIDA...
+      </div>
+
+      <div class="intro-line"></div>
+
+      <div class="cosmic-heart">
+        <div class="heart-glow"></div>
+
+        <i class="fas fa-heart"></i>
+
+        <div class="heart-ring ring-one"></div>
+        <div class="heart-ring ring-two"></div>
+        <div class="heart-ring ring-three"></div>
+      </div>
+
+      <h1 class="intro-title">
+        María
+      </h1>
+
+      <p class="intro-subtitle">
+        ...y sin darnos cuenta,
+        <span>se convierten en nuestro universo.</span>
+      </p>
+
+
+      <!-- SOBRE -->
+
+      <div class="envelope-wrapper" id="envelope-wrapper">
+
+        <div class="envelope">
+
+          <div class="envelope-back"></div>
+
+          <div class="envelope-letter">
+            <div class="mini-heart">♥</div>
+
+            <strong>Para María</strong>
+
+            <span>
+              Una pequeña sorpresa...
+            </span>
+          </div>
+
+          <div class="envelope-flap" id="envelope-flap"></div>
+
+          <div class="envelope-front"></div>
+
+          <button class="envelope-wax-seal" aria-label="Abrir carta">
+            <i class="fas fa-heart"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <h2 class="intro-name">
+        María Barreto Angel
+      </h2>
+
+      <p class="intro-from">
+        De parte de Abel Ríos Rodríguez
+      </p>
+
+      <div class="envelope-prompt">
+        <i class="fas fa-fingerprint"></i>
+
+        Toca el corazón para abrir mi alma
+
+        <span>♡</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+  ====================================================== -->
+
+  <main class="main-wrapper" id="main-wrapper">
+
+
+    <!-- HERO -->
+
+    <header class="hero-section">
+
+      <div class="hero-stars"></div>
+
+      <div class="hero-heart">
+
+        <div class="hero-heart-glow"></div>
+
+        <i class="fas fa-heart"></i>
+
+      </div>
+
+      <div class="hero-small">
+        PARA LA MUJER QUE CAMBIÓ MI UNIVERSO
+      </div>
+
+      <h1 class="hero-title">
+        María Barreto Angel
+      </h1>
+
+      <h2 class="hero-subtitle">
+        Mi amor.
+        <span>Mi paz.</span>
+        Mi lugar favorito.
+      </h2>
+
+      <p class="hero-dedication">
+        Si el universo tuviera un lugar donde guardar
+        las cosas más bonitas que me han pasado...
+        <strong>tú estarías ahí.</strong>
+      </p>
+
+      <div class="scroll-indicator">
+        <span>Desliza lentamente</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTADOR / MOMENTO ESPECIAL
+    ====================================================== -->
+
+    <section class="section-container universe-section">
+
+      <div class="section-header">
+
+        <span class="section-kicker">
+          ✦ NUESTRO PEQUEÑO UNIVERSO ✦
+        </span>
+
+        <h2 class="section-title">
+          Hay millones de estrellas...
+        </h2>
+
+        <p class="section-subtitle">
+          pero yo tuve la suerte de encontrar la que ilumina mi vida.
+        </p>
+
+      </div>
+
+
+      <div class="universe-card">
+
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
+
+        <div class="universe-center">
+
+          <i class="fas fa-heart"></i>
+
+          <strong>
+            ABEL
+            <span>♥</span>
+            MARÍA
+          </strong>
+
+          <small>
+            Dos corazones,
+            un mismo universo.
+          </small>
+
+        </div>
+
+        <div class="planet planet-one">♥</div>
+        <div class="planet planet-two">✦</div>
+        <div class="planet planet-three">♥</div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CARTA
+    ====================================================== -->
+
+    <section class="section-container">
+
+      <div class="section-header">
+
+        <span class="section-kicker">
+          ✉ UNA CARTA DESDE MI CORAZÓN
+        </span>
+
+        <h2 class="section-title">
+          Carta de Amor Eterna
+        </h2>
+
+        <p class="section-subtitle">
+          Palabras que quizá no siempre sé decirte en persona.
+        </p>
+
+      </div>
+
+
+      <article class="glass-card love-letter">
+
+        <div class="letter-decoration top">
+          <span>♥</span>
+          <span>✦</span>
+          <span>♥</span>
+        </div>
+
+
+        <div class="letter-content">
+
+          <p class="letter-greeting">
+            Mi amada María...
+          </p>
+
+          <p>
+            Hoy quiero escribirte algo que quizá debería
+            decirte todos los días.
+          </p>
+
+          <p>
+            Desde que llegaste a mi vida, muchas cosas
+            cambiaron. Pero la más bonita de todas fue
+            descubrir que una persona puede convertirse
+            en hogar.
+          </p>
+
+          <p>
+            Y para mí, muchas veces ese hogar eres tú.
+          </p>
+
+          <p>
+            Tu sonrisa, tus ocurrencias, tu forma de mirarme,
+            tus abrazos y hasta esos pequeños momentos que
+            quizá para ti parecen normales, para mí tienen
+            un valor enorme.
+          </p>
+
+          <p>
+            No te prometo una vida perfecta.
+            Te prometo algo más real:
+            estar ahí, aprender contigo, cuidarte,
+            escucharte, hacerte reír y seguir construyendo
+            recuerdos a tu lado.
+          </p>
+
+          <p>
+            Porque cuando pienso en los momentos que quiero
+            recordar dentro de muchos años...
+            quiero que tú aparezcas en ellos.
+          </p>
+
+          <p class="letter-highlight">
+            Gracias por existir.
+            Gracias por formar parte de mi vida.
+            Y gracias por ser tú.
+          </p>
+
+          <p>
+            Si alguna vez dudas de lo mucho que significas
+            para mí, vuelve a esta página.
+          </p>
+
+          <p>
+            Y recuerda que en algún lugar de este pequeño
+            universo existe un corazón que eligió quererte.
+          </p>
+
+
+          <div class="letter-signature">
+
+            <span>Con todo mi amor,</span>
+
+            <strong>
+              Abel Ríos Rodríguez
+            </strong>
+
+            <small>
+              Tu amado ♥
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="letter-decoration bottom">
+          <span>✦</span>
+          <span>♥</span>
+          <span>✦</span>
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         FRASE CINEMATOGRÁFICA
+    ====================================================== -->
+
+    <section class="cinematic-love-section">
+
+      <div class="cinematic-overlay"></div>
+
+      <div class="cinematic-content">
+
+        <span>
+          Y SI ALGÚN DÍA ME PREGUNTAS...
+        </span>
+
+        <h2>
+          "¿Por qué me amas?"
+        </h2>
+
+        <p>
+          Probablemente necesitaría toda una vida
+          para responderte.
+        </p>
+
+        <div class="cinematic-heart">
+          ♥
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DETALLES
+    ====================================================== -->
+
+    <section class="section-container">
+
+      <div class="section-header">
+
+        <span class="section-kicker">
+          🌹 HECHO ESPECIALMENTE PARA TI
+        </span>
+
+        <h2 class="section-title">
+          Un detalle para mi reina
+        </h2>
+
+        <p class="section-subtitle">
+          Porque algunas personas merecen más que un simple "te amo".
+        </p>
+
+      </div>
+
+
+      <div class="romantic-showcase">
+
+        <div class="rose-card">
+
+          <div class="rose-glow"></div>
+
+          <div class="rose">🌹</div>
+
+          <div class="rose-petals">
+            ♥ ♥ ♥
+          </div>
+
+          <h3>
+            Para ti, María
+          </h3>
+
+          <p>
+            Una rosa no alcanza para representar
+            todo lo bonita que eres para mí.
+          </p>
+
+        </div>
+
+
+        <div class="teddy-card">
+
+          <div class="teddy-bear">
+
+            <div class="teddy-ear left"></div>
+            <div class="teddy-ear right"></div>
+
+            <div class="teddy-head">
+
+              <div class="teddy-eye left"></div>
+              <div class="teddy-eye right"></div>
+
+              <div class="teddy-muzzle">
+                <div class="teddy-nose"></div>
+              </div>
+
+            </div>
+
+            <div class="teddy-body"></div>
+
+            <div class="teddy-heart">
+              A + M
+            </div>
+
+          </div>
+
+          <h3>
+            Un abrazo para ti
+          </h3>
+
+          <p>
+            De esos abrazos que dicen:
+            "No quiero soltarte todavía".
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         POEMAS
+    ====================================================== -->
+
+    <section class="section-container">
+
+      <div class="section-header">
+
+        <span class="section-kicker">
+          ✍ PALABRAS DE ABEL
+        </span>
+
+        <h2 class="section-title">
+          Pequeños versos para ti
+        </h2>
+
+      </div>
+
+
+      <div class="poems-grid">
+
+        <article class="poem-card">
+
+          <i class="fas fa-star poem-icon"></i>
+
+          <h3>
+            Mi Estrella
+          </h3>
+
+          <p>
+            Entre millones de estrellas<br>
+            encontré una especial,<br>
+            no estaba en el cielo...<br>
+            estaba en mi vida.<br><br>
+            Y esa estrella<br>
+            eres tú, María.
+          </p>
+
+          <div class="poem-author">
+            — Abel ♥
+          </div>
+
+        </article>
+
+
+        <article class="poem-card">
+
+          <i class="fas fa-heart poem-icon"></i>
+
+          <h3>
+            Mi Lugar
+          </h3>
+
+          <p>
+            No necesito un lugar perfecto,<br>
+            ni un mundo sin problemas.<br><br>
+            Si estás conmigo,<br>
+            cualquier lugar<br>
+            puede convertirse en hogar.
+          </p>
+
+          <div class="poem-author">
+            — Abel ♥
+          </div>
+
+        </article>
+
+
+        <article class="poem-card">
+
+          <i class="fas fa-infinity poem-icon"></i>
+
+          <h3>
+            Siempre
+          </h3>
+
+          <p>
+            Si pudiera volver al pasado,<br>
+            volvería a encontrarte.<br><br>
+            Si pudiera cambiar algo,<br>
+            elegiría conocerte<br>
+            un poquito antes.
+          </p>
+
+          <div class="poem-author">
+            — Abel ♥
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FRASCO DE RAZONES
+    ====================================================== -->
+
+    <section class="section-container love-jar-container">
+
+      <div class="section-header">
+
+        <span class="section-kicker">
+          💌 ABRE MI CORAZÓN
+        </span>
+
+        <h2 class="section-title">
+          El Frasco del Amor
+        </h2>
+
+        <p class="section-subtitle">
+          Toca los corazones.
+          Cada uno guarda una razón diferente.
+        </p>
+
+      </div>
+
+
+      <div class="jar-wrapper" id="jar-wrapper">
+
+        <div class="jar-lid"></div>
+
+        <div class="jar-glass"></div>
+
+        <!-- Los corazones se generan con JS -->
+
+      </div>
+
+
+      <div class="action-buttons-group">
+
+        <button class="btn-romantic" id="burst-love-btn">
+
+          <i class="fas fa-heart"></i>
+
+          Llenar el cielo de corazones
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FINAL EMOTIVO
+    ====================================================== -->
+
+    <section class="final-love-section">
+
+      <div class="final-stars"></div>
+
+      <div class="final-content">
+
+        <div class="final-small">
+          ANTES DE TERMINAR...
+        </div>
+
+        <h2>
+          María...
+        </h2>
+
+        <p class="final-message">
+          Si llegaste hasta aquí,
+          quiero que recuerdes una sola cosa.
+        </p>
+
+        <div class="final-big-message">
+
+          <span>
+            ERES
+          </span>
+
+          <strong>
+            MUY
+          </strong>
+
+          <span>
+            ESPECIAL
+          </span>
+
+          <em>
+            para mí.
+          </em>
+
+        </div>
+
+
+        <button class="final-heart-button" id="final-heart-button">
+
+          <span>♥</span>
+
+          <small>
+            Toca aquí
+          </small>
+
+        </button>
+
+
+        <div class="final-secret" id="final-secret">
+
+          <p>
+            Y si pudiera volver a elegir...
+          </p>
+
+          <strong>
+            te volvería a elegir a ti.
+          </strong>
+
+          <span>
+            Una y otra vez. ❤️
+          </span>
+
+        </div>
+
+
+        <div class="final-signature">
+
+          <span>
+            Con todo mi corazón,
+          </span>
+
+          <strong>
+            Abel
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer-romantic">
+
+      <div class="footer-heart">
+        ♥
+      </div>
+
+      <p>
+        Esta página fue creada con amor por
+        <strong>Abel Ríos Rodríguez</strong>
+      </p>
+
+      <p>
+        exclusivamente para
+        <strong>María Barreto Angel</strong>
+      </p>
+
+      <div class="footer-symbols">
+        ♥ ✦ ♥ ✦ ♥
+      </div>
+
+    </footer>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       MODAL
+  ====================================================== -->
+
+  <div class="reason-popup-modal" id="reason-modal">
+
+    <div class="reason-modal-card">
+
+      <button class="modal-x" id="modal-x">
+        ×
+      </button>
+
+      <div class="modal-heart">
+        ♥
+      </div>
+
+      <div class="reason-modal-num" id="modal-num">
+        Razón de mi amor
+      </div>
+
+      <div class="reason-modal-text" id="modal-text">
+        "Te amo."
+      </div>
+
+      <button class="reason-close-btn" id="modal-close-btn">
+
+        <i class="fas fa-heart"></i>
+
+        Te amo, María
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- JS -->
+
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
